@@ -123,6 +123,18 @@ else
 	bad "mise not found"
 fi
 
+section "AI — default coding agent"
+if have omarchy; then
+	agent=$(omarchy default agent 2>/dev/null | head -n1 | tr -d '[:space:]')
+	if [ -n "$agent" ]; then
+		ok "Default coding agent configured: $agent"
+	else
+		bad "No default coding agent set — run 'omarchy default agent <name>' to choose one"
+	fi
+else
+	skip "AI agent check" "omarchy command not found"
+fi
+
 section "System health"
 if have systemctl; then
 	failed_system=$(systemctl --failed --no-legend 2>/dev/null | wc -l)
