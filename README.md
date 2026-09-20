@@ -18,14 +18,25 @@ The course used to ask you to self-report a checklist ("I did this ✓"). This s
 
 ```bash
 curl -O https://raw.githubusercontent.com/smanookian/omarchy-course-verify/main/verify.sh
-curl -O https://raw.githubusercontent.com/smanookian/omarchy-course-verify/main/verify.sh.sha256
-sha256sum -c verify.sh.sha256
-cat verify.sh          # read it before you run it
 chmod +x verify.sh
 ./verify.sh
 ```
 
+### Verify the download first (optional, recommended)
+
+If you'd rather check the file's integrity before running it:
+
+```bash
+curl -O https://raw.githubusercontent.com/smanookian/omarchy-course-verify/main/verify.sh.sha256
+sha256sum -c verify.sh.sha256
+cat verify.sh          # read it before you run it
+```
+
 Exit code is `0` if every check passed, `1` otherwise — safe to use in your own scripts if you want.
+
+### About the "partial report" note on Firmware
+
+The script never asks for `sudo` — that's intentional, it should be safe to run without elevated privileges. `bootctl status` needs root to read a couple of boot-partition files it doesn't strictly need for this check, so as a normal user you'll see a "partial report" note even when your boot is completely healthy. If you want the full `bootctl` output yourself, run `sudo bootctl status` directly.
 
 ## License
 

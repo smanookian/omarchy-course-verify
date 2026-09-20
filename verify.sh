@@ -41,7 +41,11 @@ if have bootctl; then
 	bootctl_out=$(bootctl status 2>&1)
 	loader=$(printf '%s\n' "$bootctl_out" | grep -m1 'Product:' | sed 's/^ *Product: *//')
 	if [ -n "$loader" ]; then
-		ok "Bootloader detected: $loader (bootctl needs root for a full report; this is a partial read as your user)"
+		if printf '%s\n' "$bootctl_out" | grep -qi 'permission denied'; then
+			ok "Bootloader detected: $loader (partial report — run 'sudo bootctl status' yourself for the full one)"
+		else
+			ok "Bootloader detected: $loader (full report)"
+		fi
 	else
 		bad "Could not read any bootloader info from 'bootctl status'"
 	fi
