@@ -2,7 +2,7 @@
 
 A read-only health check for the [Stevinator free Omarchy course](https://stevinator.com/courses/omarchy).
 
-Every check mirrors a real item from the course's own Module 0 Checkpoint and later modules: is Omarchy installed, is the bootloader reachable, does networking/audio/Bluetooth work, is Git/GitHub CLI/mise set up, are there any failed systemd units, is snapshot tooling present.
+Every check mirrors a real item from the course's own Module 0 Checkpoint and later modules: is Omarchy installed, is the bootloader reachable, does networking/audio/Bluetooth work, is a default AI coding agent configured, is Git/GitHub CLI/mise set up, are there any failed systemd units, is snapshot tooling present.
 
 ## Why this exists
 
