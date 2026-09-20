@@ -38,10 +38,12 @@ fi
 
 section "Firmware"
 if have bootctl; then
-	if bootctl status >/dev/null 2>&1; then
-		ok "Bootloader reachable via bootctl (see 'bootctl status' for details)"
+	bootctl_out=$(bootctl status 2>&1)
+	loader=$(printf '%s\n' "$bootctl_out" | grep -m1 'Product:' | sed 's/^ *Product: *//')
+	if [ -n "$loader" ]; then
+		ok "Bootloader detected: $loader (bootctl needs root for a full report; this is a partial read as your user)"
 	else
-		bad "bootctl present but 'bootctl status' failed"
+		bad "Could not read any bootloader info from 'bootctl status'"
 	fi
 else
 	skip "Bootloader check" "bootctl not found"
